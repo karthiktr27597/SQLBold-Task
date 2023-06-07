@@ -1,0 +1,125 @@
+Used Website: https://www.programiz.com/sql/online-compiler/
+
+// Table - Movies
+  
+create table Movies(Id int primary key, Movie text, Genre text, Trailer text, Released date);
+
+insert into movies values(1, "Pichaikkaran 2", "Drama/Thriller", "https://www.youtube.com/watch?v=QTMq1kjSmAo", 2023-05-19);
+
+update movies set released = "2023-19-05"
+where id = 1;
+
+insert into movies values(2, "Ponniyin Selvan: II", "Action/Drama", "https://www.youtube.com/watch?v=EnhS3matIoU", "2023-04-28");
+
+insert into movies values(3, "Baahubali 2: The Conclusion", "Action/Adventure", "https://www.youtube.com/watch?v=94BzBOpv42g", "2017-04-28");
+
+
+
+// Table - Movie_Review
+
+create table Movie_Review(Reviewer_Id int not null,
+                          Reviewer varchar(100),
+                          Movie_Id int,
+                          Feedback text,
+                          primary key(Reviewer_ID),
+                          foreign key(Movies_Id) References Movies(Id));
+
+
+insert into movie_review values(1, "Suresh Kumar", "Anti bikili alarming
+Excellent movie worth to watch", 1);
+
+insert into movie_review values(2, "Vinoth", "Ponniyin Selvan-2 starts with a bang but ends drastically....", 2);
+
+insert into movie_review values(3, "Sayan", "Baahubali 2 - A Pure Classic that can be Enjoyed Again and Again! ", 3);
+
+insert into movie_review values(4, "Shankar", "Excellent.. What a director he is..
+Beautifully crafted the story in this film", 1);
+
+insert into movie_review values(5, "Karthik", "The movie was amazing and was better than PS1, Love to Watch", 2);
+
+insert into movie_review values(6, "Vishwanath ", "The music, cast, narration, acting, fight, and all the scenes from the beginning to end is mind-blowing", 3);
+
+
+// Table - Movie_Artist
+
+
+create table Movie_Artist(Artist_Id int not null,
+                          Artist varchar(20),
+                          Movie_Id int,
+                          Skills text,
+                          Role text,
+                          primary key(Artist_Id)
+                          foreign key(Movie_Id) references Movies(Id));
+
+insert into Movie_Artist values(1, "Vijay Antony", 1, "Music Composer, Playback Singer, Actor, Director", "Vijay Gurumoorthy and Sathya");
+insert into Movie_Artist values(2, "Karthi", 2, "Actor", "Vallavaraiyan Vandiyadevan");
+insert into Movie_Artist values(3, "Jeyam Ravi", 2, "Actor","Arunmozhi Varman");
+insert into Movie_Artist values(4, "Tirsha", 2, "Actress,Dancer","Kundavai");
+insert into Movie_Artist values(5, "Aishwarya Rai", 2, "Actress,Dancer", "Nandini");
+insert into Movie_Artist values(6, "JayaRam", 2, "Actor", "Azhwarkadiyan Nambi");
+insert into Movie_Artist values(7, "Prabhas", 3, "Actor", "Mahendra Baahubali and Amarendra Baahubali");
+insert into Movie_Artist values(8, "Anushka shetty", 3, "Actress", "Devasena");
+insert into Movie_Artist values(9, "Nassar", 3, "Actor", "Bijjaladeva");
+
+                                  ---------------------------------------
+
+Select Query from join 2 table:
+
+Select movie,artist,trailer from movies inner join movie_artist
+on movies.id = movie_artist.movie_id
+where movie like "Pichaikkaran%"
+
+
+Output:
+
+Movie	         Artist	        Trailer
+Pichaikkaran 2	 Vijay Antony	https://www.youtube.com/watch?v=QTMq1kjSmAo
+
+                                   ---------------------------------------
+
+
+Select Query from join 2 table:
+
+Select movie,feedback from movies inner join movie_review
+on movies.id = movie_review.movie_id
+where movie like "ponniyin%"
+
+Output:
+
+Movie	                  Feedback
+Ponniyin Selvan: II	      Ponniyin Selvan-2 starts with a bang but ends drastically....
+Ponniyin Selvan: II	      The movie was amazing and was better than PS1, Love to Watch
+
+                               ---------------------------------------------
+
+
+3 table join Query:
+
+select Movie, artist, feedback from Movies inner join Movie_Artist
+on Movies.id = Movie_Artist.Movie_Id inner join Movie_Review on
+Movie_Review.Movie_Id = Movie_Artist.Movie_Id
+
+Output:
+
+
+    Movie	                       Artist	                          Feedback
+Pichaikkaran 2	                Vijay Antony	      Anti bikili alarming Excellent movie worth to watch
+Pichaikkaran 2	                Vijay Antony	      Excellent.. What a director he is.. Beautifully crafted the story in this film
+Ponniyin Selvan: II	            Karthi	              Ponniyin Selvan-2 starts with a bang but ends drastically....
+Ponniyin Selvan: II	            Karthi	              The movie was amazing and was better than PS1, Love to Watch
+Ponniyin Selvan: II	            Jeyam Ravi	          Ponniyin Selvan-2 starts with a bang but ends drastically....
+Ponniyin Selvan: II	            Jeyam Ravi	          The movie was amazing and was better than PS1, Love to Watch
+Ponniyin Selvan: II	            Tirsha	              Ponniyin Selvan-2 starts with a bang but ends drastically....
+Ponniyin Selvan: II	            Tirsha	              The movie was amazing and was better than PS1, Love to Watch
+Ponniyin Selvan: II	            Aishwarya Rai	      Ponniyin Selvan-2 starts with a bang but ends drastically....
+Ponniyin Selvan: II	            Aishwarya Rai	      The movie was amazing and was better than PS1, Love to Watch
+Ponniyin Selvan: II	            JayaRam	              Ponniyin Selvan-2 starts with a bang but ends drastically....
+Ponniyin Selvan: II	            JayaRam	              The movie was amazing and was better than PS1, Love to Watch
+Baahubali 2: The Conclusion	    Prabhas	              Baahubali 2 - A Pure Classic that can be Enjoyed Again and Again!
+Baahubali 2: The Conclusion	    Prabhas	              The music, cast, narration, acting, fight, and all the scenes from the beginning to end is mind-blowing
+Baahubali 2: The Conclusion	    Anushka shetty	      Baahubali 2 - A Pure Classic that can be Enjoyed Again and Again!
+Baahubali 2: The Conclusion	    Anushka shetty	      The music, cast, narration, acting, fight, and all the scenes from the beginning to end is mind-blowing
+Baahubali 2: The Conclusion	    Nassar	              Baahubali 2 - A Pure Classic that can be Enjoyed Again and Again!
+Baahubali 2: The Conclusion	    Nassar	              The music, cast, narration, acting, fight, and all the scenes from the beginning to end is mind-blowing
+
+
